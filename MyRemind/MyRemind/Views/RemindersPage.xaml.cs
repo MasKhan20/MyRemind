@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MyRemind.Models;
+using MyRemind.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +14,22 @@ namespace MyRemind.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class RemindersPage : ContentPage
 	{
-		public RemindersPage ()
+		public RemindersPage()
 		{
-			InitializeComponent ();
+			InitializeComponent();
+            BindingContext = new RemindersPageViewModel();
 		}
-	}
+
+        private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs args)
+        {
+            var item = args.SelectedItem as Reminder;
+            if (item == null)
+                return;
+
+            await Navigation.PushAsync(new ReminderDetailPage(new ReminderDetailPageViewModel(item)));
+
+            // Manually deselect item.
+            RemindersListView.SelectedItem = null;
+        }
+    }
 }
