@@ -1,4 +1,5 @@
-﻿using MyRemind.Views;
+﻿using MyRemind.Data;
+using MyRemind.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,14 @@ namespace MyRemind
 {
 	public partial class App : Application
 	{
+        static ReminderDataBase database;
+
 		public App ()
 		{
 			InitializeComponent();
 
-			MainPage = new MainMasterPage();
+			MainPage = new NavigationPage(new MenuPage());
+            //new NavigationPage().BarBackgroundColor = Color.LimeGreen;
 		}
 
 		protected override void OnStart ()
@@ -31,5 +35,18 @@ namespace MyRemind
 		{
 			// Handle when your app resumes
 		}
+
+        public static ReminderDataBase DataBase
+        {
+            get
+            {
+                if (database == null)
+                {
+                    database = new ReminderDataBase(
+                        DependencyService.Get<IFileHelper>().GetLocalFilePath("ReminderSQLite.db3"));
+                }
+                return database;
+            }
+        }
 	}
 }

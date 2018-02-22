@@ -18,15 +18,21 @@ namespace MyRemind.Views
 		{
 			InitializeComponent();
             BindingContext = new RemindersPageViewModel();
+
+            MessagingCenter.Subscribe<RemindersPageViewModel>(new RemindersPageViewModel(), "CreateReminder",
+                sender =>
+                {
+                    Navigation.PushAsync(new CreateReminderPage());
+                });
 		}
 
         private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as Reminder;
-            if (item == null)
+            var reminder = args.SelectedItem as Reminder;
+            if (reminder == null)
                 return;
 
-            await Navigation.PushAsync(new ReminderDetailPage(new ReminderDetailPageViewModel(item)));
+            await Navigation.PushAsync(new ReminderDetailPage(new ReminderDetailPageViewModel(reminder)));
 
             // Manually deselect item.
             RemindersListView.SelectedItem = null;

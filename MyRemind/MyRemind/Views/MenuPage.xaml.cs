@@ -12,9 +12,21 @@ namespace MyRemind.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MenuPage : ContentPage
 	{
-		public MenuPage ()
+		public MenuPage()
 		{
-			InitializeComponent ();
+			InitializeComponent();
 		}
-	}
+
+        private void AddButton_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new CreateReminderPage());
+        }
+
+        private void ViewButton_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new RemindersPage());
+        }
+
+        
+    }
 }

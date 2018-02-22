@@ -1,11 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MyRemind.Views.ReminderDetailPage"
-             Title="{Binding Reminder.Title}">
+             x:Class="MyRemind.Views.CreateReminderPage"
+             Title="New Reminder">
     <ContentPage.Title>
-        Reminder Details
+        New Reminder
     </ContentPage.Title>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save" Command="{Binding SaveReminderCommand}"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid Padding="20">
             <Grid.RowDefinitions>
@@ -23,7 +26,7 @@
                 Grid.Row="0"
                 Text="Reminder Name"
                 Style="{StaticResource HeaderLabel}"/>
-            <Entry
+            <Label
                 Grid.Row="1"
                 Text="{Binding Reminder.Title}"/>
             <Label
@@ -33,9 +36,10 @@
             <Entry 
                 Grid.Row="3"
                 Text="{Binding Reminder.Description}"/>
-            <DatePicker
-                Grid.Row="4"
-                Date="{Binding Reminder.DueTime.Date}"/>
+            <StackLayout>
+                <Picker x:Name="typePicker" ItemsSource="{Binding RemindTypes}"/>
+            </StackLayout>
+            
             <TimePicker 
                 Grid.Row="5"
                 Time="{Binding Reminder.DueTime.TimeOfDay}"/>

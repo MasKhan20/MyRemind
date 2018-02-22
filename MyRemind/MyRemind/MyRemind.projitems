@@ -15,11 +15,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Data\IFileHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\ReminderDataBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ReminderTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CreateReminderPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ReminderDetailPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RemindersPageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\MainMasterPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CreateReminderPage.xaml.cs">
+      <DependentUpon>CreateReminderPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\Reminder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\MainTabPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -47,6 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ReminderDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\CreateReminderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

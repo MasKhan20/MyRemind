@@ -17,7 +17,11 @@ namespace MyRemind.ViewModels
         public ICommand RefreshRemindersCommand => new Command(RefreshReminders_Command);
         public ICommand NewReminderCommand => new Command(NewReminder_Command);
 
-        public ObservableCollection<Reminder> MyReminders { get; set; }// = new ObservableCollection<Reminder>();
+        //private ObservableCollection<Reminder> _myReminders;
+        //public ObservableCollection<Reminder> MyReminders => _myReminders 
+        //    ?? (_myReminders = new ObservableCollection<Reminder>());
+
+        public ObservableCollection<Reminder> MyReminders { get; set; } = new ObservableCollection<Reminder>();
 
         private bool _isRemindersRefreshing = false;
         public bool IsRemindersRefreshing
@@ -47,21 +51,15 @@ namespace MyRemind.ViewModels
             UpdateListView();
         }
 
-        private void UpdateListView()
+        private async void UpdateListView()
         {
-            MyReminders = new ObservableCollection<Reminder>();
+            MyReminders.Clear();
 
-            for (int i = 1; i < 21; i++)
+            List<Reminder> reminders = await App.DataBase.GetRemindersAsync();
+
+            foreach (Reminder reminder in reminders)
             {
-                var newItem = new Reminder()
-                {
-                    Title = $"Remind task {i}",
-                    Description = $"This is the item description for Remind task {i}, clicking on this item in the ListView will take you to a new page where you can view and/or edit the reminder. "
-                };
-
-                newItem.ActiveRemind = i % 2 == 0 ? true : false;
-
-                MyReminders.Add(newItem);
+                MyReminders.Add(reminder);
             }
         }
 
@@ -84,7 +82,7 @@ namespace MyRemind.ViewModels
 
         private void NewReminder_Command()
         {
-            
+            MessagingCenter.Send<RemindersPageViewModel>(this, "CreateReminder");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
