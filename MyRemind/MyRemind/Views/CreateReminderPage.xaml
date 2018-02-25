@@ -6,48 +6,196 @@
     <ContentPage.Title>
         New Reminder
     </ContentPage.Title>
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Save" Command="{Binding SaveReminderCommand}"/>
-    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <Grid Padding="20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Label
-                Grid.Row="0"
-                Text="Reminder Name"
-                Style="{StaticResource HeaderLabel}"/>
-            <Label
-                Grid.Row="1"
-                Text="{Binding Reminder.Title}"/>
-            <Label
-                Grid.Row="2"
-                Text="Reminder Description"
-                Style="{StaticResource HeaderLabel}"/>
-            <Entry 
-                Grid.Row="3"
-                Text="{Binding Reminder.Description}"/>
-            <StackLayout>
-                <Picker x:Name="typePicker" ItemsSource="{Binding RemindTypes}"/>
-            </StackLayout>
-            
-            <TimePicker 
-                Grid.Row="5"
-                Time="{Binding Reminder.DueTime.TimeOfDay}"/>
+        <ScrollView>
+            <Grid Padding="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Text="Reminder Name"
+                    Margin="0,5,0,0"
+                    Style="{StaticResource HeaderLabel}"/>
+                <Entry
+                    Grid.Row="1"
+                    Placeholder="Title"
+                    Text="{Binding ReminderTitle}"/>
+                <Label
+                    Grid.Row="2"
+                    Text="Reminder Description"
+                    Margin="0,5,0,0"
+                    Style="{StaticResource HeaderLabel}"/>
+                <Entry 
+                    Grid.Row="3"
+                    Placeholder="Description"
+                    Text="{Binding ReminderDescription}"/>
+                <Label
+                    Grid.Row="4"
+                    Text="Reminder Type"
+                    Margin="0,5,0,0"
+                    Style="{StaticResource HeaderLabel}"/>
+                <Picker
+                    Grid.Row="5"
+                    Title="Remind me on (select)"
+                    ItemsSource="{Binding RemindTypes}"
+                    SelectedIndex="{Binding SelectedRemindIndex}"/>
+                <!--Have multiple layouts which appear and disappear according to the selected days-->
+                <Grid Grid.Row="6" Margin="10,5,0,0">
+                    <Grid IsVisible="{Binding ShowDaily}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label 
+                            Text="Select time"
+                            Margin="0,5,0,0"/>
+                        <TimePicker
+                            Grid.Row="1"
+                            Time="{Binding ReminderTimeofDay}"/>
+                    </Grid>
+                    <Grid IsVisible="{Binding ShowOnce}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label 
+                            Grid.Row="0"
+                            Text="Select time" 
+                            Margin="5,5,0,0"/>
+                        <TimePicker
+                            Grid.Row="1"
+                            Time="{Binding ReminderTimeOfDay}"/>
+                        <Label 
+                            Grid.Row="2"
+                            Text="Select day" 
+                            Margin="5,5,0,0"/>
+                        <DatePicker
+                            Grid.Row="3"
+                            Date="{Binding ReminderDate}"/>
+                    </Grid>
+                    <!--Change this to custom days-->
+                    <Grid IsVisible="{Binding ShowWeekDays}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label 
+                            Text="Select time"
+                            Margin="0,5,0,0"/>
+                        <TimePicker
+                            Grid.Row="1"
+                            Time="{Binding ReminderTimeofDay}"/>
+                    </Grid>
+                    <Grid IsVisible="{Binding ShowWeekEnds}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label 
+                            Text="Select time"
+                            Margin="0,5,0,0"/>
+                        <TimePicker
+                            Grid.Row="1"
+                            Time="{Binding ReminderTimeofDay}"/>
+                    </Grid>
+                </Grid>
+                <Grid
+                    Grid.Row="7"
+                    IsVisible="{Binding ShowCustom}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label 
+                        Grid.Row="0"
+                        Grid.ColumnSpan="2"
+                        Text="Days of the Week"
+                        Margin="5,5,0,0"/>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Text="Mon"/>
+                    <Switch 
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        IsToggled="{Binding CustomMon}"/>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Text="Tue"/>
+                    <Switch
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        IsToggled="{Binding CustomTue}"/>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Text="Wed"/>
+                    <Switch
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        IsToggled="{Binding CustomWed}"/>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="3"
+                        Text="Thu"/>
+                    <Switch
+                        Grid.Row="2"
+                        Grid.Column="3"
+                        IsToggled="{Binding CustomThu}"/>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="4"
+                        Text="Fri"/>
+                    <Switch
+                        Grid.Row="2"
+                        Grid.Column="4"
+                        IsToggled="{Binding CustomFri}"/>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="5"
+                        Text="Sat"/>
+                    <Switch
+                        Grid.Row="2"
+                        Grid.Column="5"
+                        IsToggled="{Binding CustomSat}"/>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="6"
+                        Text="Sun"/>
+                    <Switch
+                        Grid.Row="2"
+                        Grid.Column="6"
+                        IsToggled="{Binding CustomSun}"/>
+                </Grid>
 
-            <Button 
-                Grid.Row="8" 
-                Text="Delete Reminder" 
-                Command="{Binding DeleteReminderCommand}"/>
-        </Grid>
+
+                <Button 
+                    Grid.Row="10" 
+                    Text="Save Reminder" 
+                    Command="{Binding SaveReminderCommand}"/>
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

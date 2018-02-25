@@ -26,7 +26,5 @@ namespace MyRemind.Views
         {
             Navigation.PushAsync(new RemindersPage());
         }
-
-        
     }
 }

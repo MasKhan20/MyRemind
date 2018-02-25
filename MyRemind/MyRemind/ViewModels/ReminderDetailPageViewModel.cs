@@ -10,6 +10,7 @@ namespace MyRemind.ViewModels
 {
     public class ReminderDetailPageViewModel
     {
+        public ICommand SaveReminderCommand => new Command(SaveReminder_Command);
         public ICommand DeleteReminderCommand => new Command(DeleteReminder_Command);
 
         public Reminder Reminder { get; set; }
@@ -17,6 +18,11 @@ namespace MyRemind.ViewModels
         {
             
             Reminder = reminder;
+        }
+
+        private void SaveReminder_Command()
+        {
+            App.DataBase.SaveReminderAsync(Reminder);
         }
 
         private void DeleteReminder_Command()

@@ -10,6 +10,6 @@ namespace MyRemind.Models
         Once,
         WeekDays,
         WeekEnds,
-        Weekly
+        Custom
     }
 }

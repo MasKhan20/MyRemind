@@ -7,43 +7,51 @@
         Reminder Details
     </ContentPage.Title>
     <ContentPage.Content>
-        <Grid Padding="20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Label
-                Grid.Row="0"
-                Text="Reminder Name"
-                Style="{StaticResource HeaderLabel}"/>
-            <Entry
-                Grid.Row="1"
-                Text="{Binding Reminder.Title}"/>
-            <Label
-                Grid.Row="2"
-                Text="Reminder Description"
-                Style="{StaticResource HeaderLabel}"/>
-            <Entry 
-                Grid.Row="3"
-                Text="{Binding Reminder.Description}"/>
-            <DatePicker
-                Grid.Row="4"
-                Date="{Binding Reminder.DueTime.Date}"/>
-            <TimePicker 
-                Grid.Row="5"
-                Time="{Binding Reminder.DueTime.TimeOfDay}"/>
+        <ScrollView>
+            <Grid Padding="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Text="Reminder Name"
+                    Style="{StaticResource HeaderLabel}"/>
+                <Entry
+                    Grid.Row="1"
+                    Text="{Binding Reminder.Title}"/>
+                <Label
+                    Grid.Row="2"
+                    Text="Reminder Description"
+                    Style="{StaticResource HeaderLabel}"/>
+                <Entry 
+                    Grid.Row="3"
+                    Text="{Binding Reminder.Description}"/>
+                <DatePicker
+                    Grid.Row="4"
+                    Date="{Binding Reminder.DueTime.Date}"/>
+                <TimePicker 
+                    Grid.Row="5"
+                    Time="{Binding Reminder.DueTime.TimeOfDay}"/>
 
-            <Button 
-                Grid.Row="8" 
-                Text="Delete Reminder" 
-                Command="{Binding DeleteReminderCommand}"/>
-        </Grid>
+                <Button 
+                    Grid.Row="9"
+                    Text="Save Reminder"
+                    Command="{Binding SaveReminderCommand}"/>
+                <Button 
+                    Grid.Row="10" 
+                    Text="Delete Reminder" 
+                    Command="{Binding DeleteReminderCommand}"/>
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

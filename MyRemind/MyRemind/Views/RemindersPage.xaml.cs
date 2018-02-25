@@ -19,11 +19,11 @@ namespace MyRemind.Views
 			InitializeComponent();
             BindingContext = new RemindersPageViewModel();
 
-            MessagingCenter.Subscribe<RemindersPageViewModel>(new RemindersPageViewModel(), "CreateReminder",
-                sender =>
-                {
-                    Navigation.PushAsync(new CreateReminderPage());
-                });
+            //MessagingCenter.Subscribe<RemindersPageViewModel>(new RemindersPageViewModel(), "CreateReminder",
+            //    sender =>
+            //    {
+            //        Navigation.PushAsync(new CreateReminderPage());
+            //    });
 		}
 
         private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs args)

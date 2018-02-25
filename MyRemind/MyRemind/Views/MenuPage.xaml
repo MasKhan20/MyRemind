@@ -6,10 +6,12 @@
         MyRemind - Menu
     </ContentPage.Title>
     <ContentPage.Content>
-        <StackLayout Padding="20" VerticalOptions="CenterAndExpand">
-            <Image Source="myremindmenu.png" HeightRequest="200" Margin="20"/>
-            <Button Text="Add Reminder" Clicked="AddButton_Clicked"/>
-            <Button Text="View Reminders" Clicked="ViewButton_Clicked"/>
-        </StackLayout>
+        <ScrollView>
+            <StackLayout Padding="20" VerticalOptions="CenterAndExpand">
+                <Image Source="myremindmenu.png" HeightRequest="150" Margin="20"/>
+                <Button Text="Add Reminder" Clicked="AddButton_Clicked"/>
+                <Button Text="View Reminders" Clicked="ViewButton_Clicked"/>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

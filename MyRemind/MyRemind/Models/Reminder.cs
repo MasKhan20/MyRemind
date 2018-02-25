@@ -16,6 +16,7 @@ namespace MyRemind.Models
         public DateTime DueTime { get; set; }
         public bool ActiveRemind { get; set; }
 
+
         //public static List<Reminder> Reminders = new List<Reminder>();
     }
 }

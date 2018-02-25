@@ -6,7 +6,7 @@
         All Reminders
     </ContentPage.Title>
     <ContentPage.Content>
-        <Grid>
+        <Grid Padding="20">
             <ListView 
                 x:Name="RemindersListView"
                 ItemsSource="{Binding MyReminders}" 
