@@ -190,8 +190,12 @@ namespace MyRemind.ViewModels
             }
         }
 
-        public CreateReminderPageViewModel()
+        public INavigation Navigation { get; set; }
+
+        public CreateReminderPageViewModel(INavigation navigation)
         {
+            Navigation = navigation;
+
             RemindTypes = new List<string>()
             {
                 "Daily",
@@ -238,7 +242,7 @@ namespace MyRemind.ViewModels
             bool valid = string.IsNullOrEmpty(ReminderTitle) ? false : true;
 
             var dueTime = new DateTime(ReminderDate.Year, ReminderDate.Month, ReminderDate.Day, ReminderTimeOfDay.Hours, ReminderTimeOfDay.Minutes, ReminderTimeOfDay.Seconds);
-
+            var time = DateTime.Now;
             Reminder newReminder = new Reminder()
             {
                 Title = ReminderTitle,
@@ -249,8 +253,16 @@ namespace MyRemind.ViewModels
 
             CrossLocalNotifications.Current.Show(newReminder.Title, newReminder.Description, newReminder.ID, DateTime.Now.AddMinutes(1));
 
-            /* Exception is thrown  */
-            MessagingCenter.Send(this, "NewReminder", valid);
+            
+            if (valid == false)
+            {
+                //DisplayAlert("Error", "Insufficient details have been supplied, \nPlease try again. ", "OK");//.Wait();
+                return;
+            }
+ 
+            //DisplayAlert("Success", "Your reminder has been saved!", "OK");
+            Navigation.PopAsync();
+            
 
             if (valid == false)
                 return;

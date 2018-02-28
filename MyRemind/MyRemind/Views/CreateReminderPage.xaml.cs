@@ -16,20 +16,10 @@ namespace MyRemind.Views
 		public CreateReminderPage()
 		{
 			InitializeComponent();
-            BindingContext = new CreateReminderPageViewModel();
 
-            MessagingCenter.Subscribe<CreateReminderPageViewModel, bool>(new CreateReminderPageViewModel(), "NewReminder",
-                (sender, valid) =>
-                {
-                    if (valid == false)
-                    {
-                        DisplayAlert("Error", "Insufficient details have been supplied, \nPlease try again. ", "OK");//.Wait();
-                        return;
-                    }
+            BindingContext = new CreateReminderPageViewModel(Navigation);
 
-                    DisplayAlert("Success", "Your reminder has been saved!", "OK");
-                    Navigation.PopAsync();
-                });
+            
         }
 	}
 }
