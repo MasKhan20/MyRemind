@@ -260,6 +260,7 @@ namespace MyRemind.ViewModels
                 return;
             }
  
+            //help here
             //DisplayAlert("Success", "Your reminder has been saved!", "OK");
             Navigation.PopAsync();
             
